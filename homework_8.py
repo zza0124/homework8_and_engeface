@@ -8,6 +8,7 @@ from datetime import datetime
 from calculated import average
 from calculated import cha
 from calculated import CHAZHI
+from sklearn import datasets, linear_model
 #画图
 mpl.rcParams['font.sans-serif'] = ['SimHei']
 df = pd.read_csv("data1.csv")
@@ -37,13 +38,41 @@ plt.show()
 #预测
 k=4
 xp=x[-k:]
-print(xp)
 yplp=plp[-k:]
 x0=xp[-1]+1
 print(yplp)
 predict1=CHAZHI.lagrange(xp,yplp,x0)
 print('预测的个人最低成交价格是',predict1)
 ypap=pap[-k:]
+print(ypap)
 predict2=CHAZHI.lagrange(xp,ypap,x0)
 print('预测的个人平均成交价格是',predict2)
-# from sklearn import preprocessing
+####
+# 计算政策影响参数
+k=4
+xp=x[-k:-1]
+yplp=plp[-k:-1]
+x0=xp[-1]+1
+print(yplp)
+predict1=CHAZHI.lagrange(xp,yplp,x0)
+theta1=plp[-1]-predict1
+print('预测的个人最低成交价格的政策影响参数为',theta1)
+ypap=pap[-k:-1]
+print(ypap)
+predict2=CHAZHI.lagrange(xp,ypap,x0)
+theta2=pap[-1]-predict2
+print('预测的个人平均成交价格的影响参数是',theta2)
+plp[-1]=predict1
+pap[-1]=predict2
+###修正后的重新预测
+k=4
+xp=x[-k:]
+yplp=plp[-k:]
+x0=xp[-1]+1
+print(yplp)
+predict1=CHAZHI.lagrange(xp,yplp,x0)
+print('修正后预测的个人最低成交价格是',predict1+theta1)
+ypap=pap[-k:]
+print(ypap)
+predict2=CHAZHI.lagrange(xp,ypap,x0)
+print('修正后预测的个人平均成交价格是',predict2+theta2)
