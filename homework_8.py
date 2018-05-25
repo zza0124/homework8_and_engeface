@@ -31,7 +31,7 @@ line1 = plt.plot(x, plp, label="个人最低成交价格", color=coloall[1], lin
 line2 = plt.plot(x, pap, label="个人平均成交价格", color=coloall[2], linewidth=0.5)
 line3 = plt.plot(x, ulp, label="单位最低成交价格", color=coloall[3], linewidth=0.5)
 line4 = plt.plot(x, uap, label="单位平均成交价格", color=coloall[4], linewidth=0.5)
-plt.xlabel("时间(第0天为2012年8月28日)/15天")
+plt.xlabel("时间(第0天为2012年8月28日)/月")
 plt.ylabel("价格/元")
 plt.title("交易价格走势图(关掉此图程序继续运行)")
 plt.show()
